@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber One</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0f172a;
+      color: white;
+      overflow-y: auto;
+      min-height: 100vh;
+    }
+    
+    #cover-page {
+      display: block;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    #app-container {
+      display: none;
+      position: relative;
+      z-index: 1;
+    }
+    
+    #app-container::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+      animation: moveLights 30s linear infinite;
+      z-index: -1;
+      opacity: 0.15;
+    }
+    
+    @keyframes moveLights {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-100px, -100px); }
+    }
+    
+    .cover-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .dedication {
+      position: absolute;
+      top: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      background: linear-gradient(90deg, #3b82f6, #06b6d4, #10b981);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .dedication p {
+      margin: 0;
+    }
+    
+    .pcm-text {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #f59e0b, #ef4444, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+      margin: 5px 0;
+    }
+    
+    .developer-name {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      margin-top: 5px;
+    }
+    
+    .cover-title {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, #3b82f6, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glow 2s infinite alternate;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    
+    .cover-subtitle {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      color: #94a3b8;
+      font-weight: 300;
+    }
+    
+    .start-btn {
+      background: linear-gradient(90deg, #3b82f6, #06b6d4);
+      color: white;
+      padding: 15px 40px;
+      border: none;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .start-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+    }
+    
+    .start-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #06b6d4, #3b82f6);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .start-btn:hover::before {
+      opacity: 1;
+    }
+    
+    .cover-footer {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      color: #64748b;
+    }
+    
+    .floating-dots {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      overflow: hidden;
+    }
+    
+    .dot {
+      position: absolute;
+      background: rgba(59, 130, 246, 0.2);
+      border-radius: 50%;
+      animation: float 15s infinite linear;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+      }
+    }
+    
+    .app-container {
+      padding: 15px;
+      background: #f9fafb;
+      color: #111827;
+      min-height: 100vh;
+    }
+    
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    .app-title {
+      font-size: 26px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #3b82f6, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+    }
+    
+    .header-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    
+    #admin-icon {
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      transition: all 0.3s;
+    }
+    
+    #admin-icon:hover {
+      background: rgba(0,0,0,0.1);
+    }
+    
+    .user-logout-btn {
+      background: linear-gradient(90deg, #ef4444, #f87171);
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      font-size: 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .user-logout-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    .modal {
+      margin-top: 10px;
+      padding: 12px;
+      background: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+    }
+    
+    input, textarea, select {
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    
+    button {
+      background: linear-gradient(90deg, #059669, #10b981);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      font-size: 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: all 0.3s;
+    }
+    
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .note-box {
+      position: relative;
+      background: white;
+      padding: 15px 45px 15px 15px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: all 0.2s;
+    }
+    
+    .note-box:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .note-box h4 {
+      margin: 0 0 10px 0;
+      color: #1d4ed8;
+      font-size: 18px;
+    }
+    
+    .note-content {
+      white-space: pre-line;
+      line-height: 1.6;
+      color: #374151;
+      margin: 10px 0;
+    }
+    
+    .note-content ul {
+      padding-left: 20px;
+      margin: 10px 0;
+    }
+    
+    .note-content li {
+      margin-bottom: 5px;
+      list-style-type: disc;
+    }
+    
+    .note-actions {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .note-actions span {
+      cursor: pointer;
+      font-size: 18px;
+      transition: transform 0.2s;
+    }
+    
+    .note-actions span:hover {
+      transform: scale(1.2);
+    }
+    
+    #categories button {
+      display: block;
+      width: 100%;
+      margin: 15px 0;
+      padding: 12px;
+      background: #1d4ed8;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    #categories button:hover {
+      background: #1e40af;
+      transform: translateY(-2px);
+    }
+    
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 10px;
+    }
+    
+    .pagination button {
+      padding: 8px 15px;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .pagination button:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    
+    .fade-out {
+      animation: fadeOut 0.5s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+    
+    @keyframes glow {
+      0% { text-shadow: 0 0 10px rgba(59,130,246,0.3); }
+      100% { text-shadow: 0 0 20px rgba(59,130,246,0.8); }
+    }
+    
+    @media (max-width: 768px) {
+      .cover-title {
+        font-size: 2rem;
+      }
+      
+      .cover-subtitle {
+        font-size: 1rem;
+      }
+      
+      .pcm-text {
+        font-size: 1.5rem;
+      }
+      
+      .dedication {
+        font-size: 1rem;
+        top: 15px;
+      }
+      
+      .start-btn {
+        padding: 12px 30px;
+        font-size: 1rem;
+      }
+      
+      .header-controls {
+        gap: 5px;
+      }
+      
+      .user-logout-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Cover Page Section -->
+  <div id="cover-page">
+    <div class="floating-dots" id="floating-dots"></div>
+    
+    <div class="cover-container">
+      <div class="dedication">
+        <p>SPECIAL REMEMBRANCE TO MY BELOVED</p>
+        <div class="pcm-text">PCM BROTHERS & SISTERS</div>
+        <div class="developer-name">by Hamza Libubulu</div>
+      </div>
+      
+      <h1 class="cover-title">WELCOME TO CYBER ONE</h1>
+      <p class="cover-subtitle">Shule ya Teknolojia ya Kisasa</p>
+      <button class="start-btn" onclick="showApp()">ENDELEA</button>
+    </div>
+    <div class="cover-footer">
+      <p>© 2025 Cyber One | Developer: <strong>Hamza Libubulu</strong></p>
+    </div>
+  </div>
+
+  <!-- App Section -->
+  <div id="app-container" class="app-container">
+    <header class="app-header">
+      <h1 class="app-title">📘 Cyber one</h1>
+      <div class="header-controls">
+        <button id="admin-icon" onclick="openLogin()">🌐</button>
+        <button class="user-logout-btn" onclick="userLogout()">🚪 logout</button>
+      </div>
+    </header>
+
+    <section id="category-list">
+      <h2>📂 Mada zilizopo</h2>
+      <div id="categories"></div>
+    </section>
+
+    <section id="notes-section" style="display:none;">
+      <h2 id="selected-category">📚 Notes</h2>
+      <div id="notes-list"></div>
+      <div class="pagination" id="pagination"></div>
+      <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+        <button onclick="goBack()">⬅️ Rudi kwa Mada</button>
+      </div>
+    </section>
+
+    <section id="admin-login" class="modal" style="display:none;">
+      <input type="password" id="admin-password" placeholder="Weka Nenosiri" />
+      <button onclick="login()">Ingia</button>
+      <p id="login-error"></p>
+    </section>
+
+    <section id="admin-panel" style="display:none;">
+      <h2>Ongeza Note Mpya</h2>
+      <select id="category-select">
+        <option value="Cybersecurity">🛡️ Cybersecurity</option>
+        <option value="Networking">🌐 Networking</option>
+        <option value="Programming">💻 Programming</option>
+        <option value="Data Structures">💾 Data Structures</option>
+        <option value="IoT & Electronics">📡 IoT & Electronics</option>
+        <option value="Reverse Engineering">🔧 Reverse Engineering</option>
+        <option value="Drone Building at Home">🚁 Drone Building at Home</option>
+        <option value="Falsafa ya Teknolojia">🧠 Falsafa ya Teknolojia</option>
+      </select>
+      <input type="text" id="note-title" placeholder="Kichwa cha Note" />
+      <textarea id="note-content" placeholder="Maelezo ya note..."></textarea>
+      <button onclick="addNote()">💾 Hifadhi</button>
+      <button onclick="logout()" style="background:#ef4444;">🚪 Logout</button>
+    </section>
+
+    <footer style="margin-top: 50px; text-align: center; color: #6b7280;">
+      <p>© 2025 Cyber One | Developer: <strong>Hamza Libubulu</strong></p>
+    </footer>
+  </div>
+
+  <script>
+    // Cover Page Functionality
+    function showApp() {
+      const coverPage = document.getElementById('cover-page');
+      const appContainer = document.getElementById('app-container');
+      
+      coverPage.classList.add('fade-out');
+      
+      setTimeout(() => {
+        coverPage.style.display = 'none';
+        coverPage.classList.remove('fade-out');
+        
+        appContainer.style.display = 'block';
+        appContainer.classList.add('fade-in');
+        
+        setTimeout(() => {
+          appContainer.classList.remove('fade-in');
+        }, 500);
+        
+        initApp();
+      }, 500);
+    }
+
+    // Create floating dots animation
+    function createFloatingDots() {
+      const container = document.getElementById('floating-dots');
+      const dotsCount = 15;
+      
+      for (let i = 0; i < dotsCount; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        
+        const size = Math.random() * 15 + 5;
+        dot.style.width = `${size}px`;
+        dot.style.height = `${size}px`;
+        
+        dot.style.left = `${Math.random() * 100}%`;
+        dot.style.top = `${Math.random() * 100}%`;
+        
+        const duration = Math.random() * 10 + 10;
+        dot.style.animationDuration = `${duration}s`;
+        
+        dot.style.animationDelay = `${Math.random() * 5}s`;
+        
+        container.appendChild(dot);
+      }
+    }
+    
+    createFloatingDots();
+
+    // App Variables
+    const ADMIN_PASSWORD = "Hamza123";
+    let isAdmin = false;
+    const categories = [
+      "Cybersecurity",
+      "Networking",
+      "Programming",
+      "Data Structures",
+      "IoT & Electronics",
+      "Reverse Engineering",
+      "Drone Building at Home",
+      "Falsafa ya Teknolojia"
+    ];
+
+    // Pagination variables
+    let currentPage = 1;
+    const notesPerPage = 10;
+    let currentCategory = "";
+
+    // Format pasted content
+    function formatPastedContent(content) {
+      // Remove extra empty lines
+      content = content.replace(/\n\s*\n/g, '\n\n');
+      
+      // Add space after bullet points
+      content = content.replace(/\n-/g, '\n- ');
+      
+      // Ensure headings have space
+      content = content.replace(/([a-zA-Z])\n([a-zA-Z])/g, '$1\n\n$2');
+      
+      return content;
+    }
+
+    // Initialize default notes for all categories
+    function initializeDefaultNotes() {
+      const notesData = JSON.parse(localStorage.getItem("notesData")) || {};
+      
+      // Cybersecurity Notes (10)
+      if (!notesData["Cybersecurity"] || notesData["Cybersecurity"].length === 0) {
+        notesData["Cybersecurity"] = [
+          {
+            title: "CYBERSECURITY NI NINI?",
+            content: "Ni ulinzi wa mifumo ya kidijitali dhidi ya mashambulizi.\n\nMifano:\n- Kuweka password kwenye simu\n- Kutotumia WiFi ya bure\n- Kufunga antivirus"
+          },
+          {
+            title: "AINA ZA MADUKU MTANDAONI",
+            content: "1. Phishing - Ujambazi wa taarifa kwa kudanganya\n2. Malware - Programu mbaya\n3. Ransomware - Kufunga mfumo na kudai fedha\n4. Hacking - Kuvuja taarifa"
+          },
+          {
+            title: "JINSI YA KULINDA AKAUNTI ZAKO",
+            content: "- Tumia password ngumu (herufi + nambari + alama)\n- Weka 2FA (uthibitisho wa hatua mbili)\n- Usishiriki password na mtu yeyote\n- Badilisha password kila miezi 3"
+          },
+          {
+            title: "VIRUSI NA ANTIVIRUS",
+            content: "Virusi ni programu hatari zinazoweza:\n- Kuharibu faili\n- Kuiba taarifa\n- Kudhoofisha mfumo\n\nAntivirus ni dawa ya kompyuta inayozuia virusi."
+          },
+          {
+            title: "FIREWALL",
+            content: "Firewall ni ukuta wa ulinzi wa mtandao:\n- Inakataza mtu asiye ruhusiwa\n- Inachunguza trafiki\n- Inazuia mashambulizi kabla hayajatokea"
+          },
+          {
+            title: "WEAKNESS ZA USALAMA",
+            content: "1. Password dhaifu\n2. Programu zisizosasa\n3. Kupiga WiFi bila VPN\n4. Kufungua viungo visivyoaminika\n5. Kutumia app za kigeni"
+          },
+          {
+            title: "HASHING NA ENCRYPTION",
+            content: "Hashing - Kubadilisha password kuwa msimbo\nEncryption - Kuficha ujumbe kwa siri\n\nMfano: Unapotuma pesa, ujumbe wako unafichwa."
+          },
+          {
+            title: "PENTESTING",
+            content: "Ni kujaribu kuvunja mfumo wako mwenyewe ili kuboresha ulinzi.\n\nKama mwenyewe kujaribu kuvunja nyumba yako uone kama ina ulinzi wa kutosha."
+          },
+          {
+            title: "SOCIAL ENGINEERING",
+            content: "Njia za kudanganya watu wenyewe:\n- Kwa simu (kujifanya ni benki)\n- Kwa email za uongo\n- Kwa kujifanya ni msaada wa kiteknolojia"
+          },
+          {
+            title: "DIGITAL FOOTPRINT",
+            content: "Nyayo zako mtandaoni:\n- Unachotafuta\n- Unachoshare\n- Maoni yako\n\nHizi zinaweza kutumika dhidi yako ikiwa hazina ulinzi."
+          }
+        ];
+      }
+
+      // Networking Notes (10)
+      if (!notesData["Networking"] || notesData["Networking"].length === 0) {
+        notesData["Networking"] = [
+          {
+            title: "NETWORKING MSINGI",
+            content: "Ni uunganishaji wa vifaa kwa njia ya:\n- Nyaya (Ethernet)\n- Bila nyaya (WiFi/Bluetooth)\n\nMfano: WiFi nyumbani, mitandao ya simu"
+          },
+          {
+            title: "AINA ZA NETWORK",
+            content: "1. PAN (Personal Area Network) - Kama Bluetooth\n2. LAN (Local Area Network) - Shule/Ofisi\n3. WAN (Wide Area Network) - Internet"
+          },
+          {
+            title: "VIFAA VYA NETWORK",
+            content: "- Router: Husambaza WiFi\n- Switch: Inaunganisha kompyuta\n- Modem: Inaleta internet\n- Access Point: Inaongeza WiFi"
+          },
+          {
+            title: "IP ADDRESS",
+            content: "Ni kama anwani ya nyumba kwa vifaa vya mtandao.\n\nMfano: 192.168.1.1\n\nKila kifaa kina IP tofauti ndani ya mtandao."
+          },
+          {
+            title: "DHCP",
+            content: "Huduma ya kugawia IP kiotomatiki kwa vifaa.\n\nBila DHCP, tungeweka IP kwa mkono kwa kila kifaa."
+          },
+          {
+            title: "DNS",
+            content: "Inabadilisha jina la tovuti kuwa nambari (IP).\n\nMfano: 'google.com' → 172.217.170.206\n\nNi kama kitabu cha anwani cha mtandao."
+          },
+          {
+            title: "PROTOCOLS",
+            content: "Sheria za mawasiliano:\n- HTTP: Kuvinjari\n- FTP: Kusafirisha faili\n- TCP: Kusimamia mawasiliano\n- IP: Kusafirisha data"
+          },
+          {
+            title: "OSI MODEL",
+            content: "Muundo wa mawasiliano wa mtandao:\n1. Physical - Nyaya\n2. Data Link - MAC\n3. Network - IP\n4. Transport - TCP\n5-7. Application - HTTP, FTP"
+          },
+          {
+            title: "SUBNETTING",
+            content: "Kugawa mtandao kuwa sehemu ndogo.\n\nKama kugawa nyumba kuwa vyumba.\n\nHusaidia kusimamia mtandao kwa urahisi."
+          },
+          {
+            title: "VPN",
+            content: "Mtandao wa siri unaoficha:\n- Eneo lako\n- Taarifa zako\n- Vitendo vyako mtandaoni\n\nNi kama kupitia njia ya siri kwenye mtandao."
+          }
+        ];
+      }
+
+      // Programming Notes (10)
+      if (!notesData["Programming"] || notesData["Programming"].length === 0) {
+        notesData["Programming"] = [
+          {
+            title: "PROGRAMMING NI NINI?",
+            content: "Ni kumfundisha kompyuta kufanya kazi.\n\nKwa kuandika maagizo kwa lugha maalum.\n\nMfano: Kufanya calculator, tovuti, n.k."
+          },
+          {
+            title: "LUGHA ZA PROGRAMMING",
+            content: "1. Python - Rahisi kwa wanaoanza\n2. JavaScript - Kwa tovuti\n3. Java - Kwa programu za simu\n4. C++ - Kwa mifumo ya haraka"
+          },
+          {
+            title: "VARIABLES",
+            content: "Ni kama vyombo vya kuhifadhia data.\n\nMfano:\nx = 5\nya = \"Jina\"\n\nx na ya ni variables."
+          },
+          {
+            title: "CONDITIONS",
+            content: "Kwa kutumia 'if':\n\nif (umri >= 18) {\n  console.log(\"Mkubwa\");\n} else {\n  console.log(\"Mdogo\");\n}"
+          },
+          {
+            title: "LOOPS",
+            content: "Kurudia tendo:\n\nfor (i = 0; i < 5; i++) {\n  console.log(i);\n}\n\nHii itaandika nambari 0-4"
+          },
+          {
+            title: "FUNCTIONS",
+            content: "Sehemu ya code inayofanya kazi maalum:\n\nfunction jumla(a, b) {\n  return a + b;\n}\n\njumla(3, 4); // 7"
+          },
+          {
+            title: "ARRAYS",
+            content: "Orodha ya vitu:\n\nmajina = [\"Juma\", \"Asha\", \"Ali\"];\n\nmajina[0]; // \"Juma\"\nmajina.length; // 3"
+          },
+          {
+            title: "OBJECTS",
+            content: "Kifaa chenye sifa na matendo:\n\nmwenyewe = {\n  jina: \"Jamal\",\n  umri: 25,\n  anwani: \"Dar\"\n};"
+          },
+          {
+            title: "ERROR HANDLING",
+            content: "Kukabiliana na makosa:\n\ntry {\n  // Code inayoweza kosa\n} catch (error) {\n  console.log(\"Kuna kosa: \" + error);\n}"
+          },
+          {
+            title: "ALGORITHMS",
+            content: "Hatua kwa hatua za kutatua tatizo.\n\nMfano:\n1. Pata nambari ndogo kwenye orodha\n2. Weka mwanzoni\n3. Rudia kwa kila nambari"
+          }
+        ];
+      }
+
+      // Data Structures Notes (10)
+      if (!notesData["Data Structures"] || notesData["Data Structures"].length === 0) {
+        notesData["Data Structures"] = [
+          {
+            title: "DATA STRUCTURES MSINGI",
+            content: "Njia za kupanga na kuhifadhi data kwa ufanisi.\n\nKama mfumo wa kupanga vitabu kwenye rafu."
+          },
+          {
+            title: "ARRAYS",
+            content: "Orodha ya vitu vya aina moja:\n\n- Vitu vina nafasi za kudumu\n- Rahisi kupata kwa index\n- Ubora wa O(1) kwa kupata"
+          },
+          {
+            title: "LINKED LISTS",
+            content: "Orodha ambayo kila kipande kinaunganishwa na kinachofuata:\n\n- Unaweza kuongeza kwa urahisi\n- Kupata ni O(n)\n- Bora kwa stack/queue"
+          },
+          {
+            title: "STACKS",
+            content: "Mfumo wa 'mwisho kuingia kwanza kutoka' (LIFO):\n\n- push() - Kuweka\n- pop() - Kuchukua\n\nMfano: Mkusanyiko wa sahani"
+          },
+          {
+            title: "QUEUES",
+            content: "Mfumo wa 'kwanza kuingia kwanza kutoka' (FIFO):\n\n- enqueue() - Kuweka\n- dequeue() - Kuchukua\n\nMfano: Foleni ya watu"
+          },
+          {
+            title: "TREES",
+            content: "Muundo wa familia:\n\n- Root (mzizi)\n- Nodes (vipande)\n- Leaves (majani)\n\nMfano: Mpangilio wa folda"
+          },
+          {
+            title: "GRAPHS",
+            content: "Vipande vilivyounganika kwa njia yoyote:\n\n- Vertices (Vyeo)\n- Edges (Kingo)\n\nMfano: Mitandao ya marafiki"
+          },
+          {
+            title: "HASH TABLES",
+            content: "Mfumo wa kuhifadhi kwa kutumia funguo:\n\n- Haraka kupata (O(1))\n- Hutumia hash function\n\nMfano: Kitabu cha anwani"
+          },
+          {
+            title: "BIG O NOTATION",
+            content: "Kipimo cha ufanisi wa algorithm:\n\n- O(1) - Mara moja\n- O(n) - Moja kwa moja\n- O(n²) - Quadratic\n- O(log n) - Logarithmic"
+          },
+          {
+            title: "CHOOSING STRUCTURES",
+            content: "Chagua kulingana na:\n\n- Unahitaji kupata mara ngapi?\n- Unahitaji kuongeza mara ngapi?\n- Ukubwa wa data?\n- Unahitaji kupanga?"
+          }
+        ];
+      }
+
+      // IoT & Electronics Notes (10)
+      if (!notesData["IoT & Electronics"] || notesData["IoT & Electronics"].length === 0) {
+        notesData["IoT & Electronics"] = [
+          {
+            title: "IoT MSINGI",
+            content: "Internet of Things - Vifaa vya kila siku vilivyounganika na mtandao.\n\nMfano:\n- Smart TV\n- Smart fridge\n- Smart lights"
+          },
+          {
+            title: "ARDUINO",
+            content: "Bodi ya ujanibishaji:\n\n- Rahisi kwa wanaoanza\n- Inaweza kudhibiti vifaa vya nyumbani\n- Inatumia C++ rahisi"
+          },
+          {
+            title: "SENSORS",
+            content: "Vipima mazingira:\n\n- Temperature (Joto)\n- Humidity (Unyevu)\n- Motion (Mwendo)\n- Light (Mwanga)"
+          },
+          {
+            title: "ACTUATORS",
+            content: "Vifaa vinavyotekeleza:\n\n- Motors\n- Relays\n- LEDs\n- Buzzers\n\nHutumiwa kufanya vitendo kimwili."
+          },
+          {
+            title: "RASPBERRY PI",
+            content: "Kompyuta ndogo:\n\n- Inaweza kutumika kama server\n- Ina GPIO kwa ujanibishaji\n- Ina OS kamili"
+          },
+          {
+            title: "MQTT",
+            content: "Itifaki ya mawasiliano ya IoT:\n\n- Lightweight\n- Publish/Subscribe model\n- Bora kwa vifaa vya nguvu kidogo"
+          },
+          {
+            title: "HOME AUTOMATION",
+            content: "Mifano ya IoT nyumbani:\n\n- Kuwasha taa kwa simu\n- Kufungua mlango kwa alama ya vidole\n- Kupima joto kiotomatiki"
+          },
+          {
+            title: "CIRCUIT DESIGN",
+            content: "Misingi ya mipango ya umeme:\n\n- Voltage\n- Current\n- Resistance\n- Ohm's Law (V = IR)"
+          },
+          {
+            title: "PROTOTYPING",
+            content: "Hatua za kutengeneza kifaa:\n\n1. Design\n2. Build circuit\n3. Program\n4. Test\n5. Improve"
+          },
+          {
+            title: "SECURITY CONCERNS",
+            content: "Hatari za IoT:\n\n- Vifaa vinaweza kudukuliwa\n- Data inaweza kuvuja\n- Hakuna updates za usalama\n\nSuluhisho: Encryption na updates"
+          }
+        ];
+      }
+
+      // Reverse Engineering Notes (10)
+      if (!notesData["Reverse Engineering"] || notesData["Reverse Engineering"].length === 0) {
+        notesData["Reverse Engineering"] = [
+          {
+            title: "REVERSE ENGINEERING",
+            content: "Kuchambua programu ili kujifunza jinsi inavyofanya kazi.\n\nKama kuvunja kifaa ili kuona sehemu zake."
+          },
+          {
+            title: "DISASSEMBLERS",
+            content: "Zinabadilisha machine code kuwa assembly code.\n\nMifano:\n- Ghidra\n- IDA Pro\n- Radare2"
+          },
+          {
+            title: "DEBUGGERS",
+            content: "Zinasaidia kufuatilia programu wakati inapoendesha:\n\n- GDB\n- OllyDbg\n- WinDbg\n\nHuweza kuona mabadiliko ya memory."
+          },
+          {
+            title: "PACKERS",
+            content: "Programu zinazoficha code:\n\n- UPX\n- Themida\n- VMProtect\n\nReverse engineering inahitaji kufungua hizi kwanza."
+          },
+          {
+            title: "MALWARE ANALYSIS",
+            content: "Kuchambua virusi:\n\n1. Static analysis - Bila kuendesha\n2. Dynamic analysis - Wakati inapoendesha\n3. Hybrid - Mchanganyiko"
+          },
+          {
+            title: "CRACKING",
+            content: "Kuvunja programu za kulipia:\n\n- Kupitia registration checks\n- Kubadilisha jumps\n- Kuweka breakpoints"
+          },
+          {
+            title: "PATCHING",
+            content: "Kubadilisha binary moja kwa moja:\n\n- Kubadilisha instructions\n- Kuongeza nop slides\n- Kureplace strings"
+          },
+          {
+            title: "ANTI-REVERSING",
+            content: "Mbinu za kuzuia reverse engineering:\n\n- Code obfuscation\n- Anti-debugging\n- Self-modifying code\n- Virtualization"
+          },
+          {
+            title: "LEGAL CONSIDERATIONS",
+            content: "Reverse engineering inaweza kuwa:\n\n- Halali kwa kujifunza\n- Haramu kwa kuvunja sheria\n\nAngalia sheria za nchi yako."
+          },
+          {
+            title: "ETHICAL HACKING",
+            content: "Matumizi mema ya reverse engineering:\n\n- Kukagua usalama wa programu\n- Kurekebisha makosa\n- Kujifunza mbinu mpya"
+          }
+        ];
+      }
+
+      // Drone Building Notes (10)
+      if (!notesData["Drone Building at Home"] || notesData["Drone Building at Home"].length === 0) {
+        notesData["Drone Building at Home"] = [
+          {
+            title: "AINA ZA DRONE",
+            content: "1. Quadcopter - Ndege 4\n2. Hexacopter - Ndege 6\n3. Octocopter - Ndege 8\n\nQuadcopter ndio rahisi kwa wanaoanza."
+          },
+          {
+            title: "SEHEMU ZA DRONE",
+            content: "- Frame (Mwili)\n- Motors (Ndege 4)\n- ESCs (Kudhibiti motors)\n- Flight Controller (Ubongo)\n- Battery\n- Propellers"
+          },
+          {
+            title: "FLIGHT CONTROLLERS",
+            content: "Aina maarufu:\n\n- KK2.1.5 (Rahisi)\n- Naze32\n- Pixhawk (Advanced)\n\nHudhibiti mwelekeo na usawa."
+          },
+          {
+            title: "REMOTE CONTROL",
+            content: "Vifaa vya kudhibiti:\n\n- Transmitter (Kutuma)\n- Receiver (Kupokea)\n\nAina: FlySky, FrSky, Taranis"
+          },
+          {
+            title: "BATTERIES",
+            content: "Aina za betri:\n\n- LiPo (Lithium Polymer)\n- Voltage: 3.7V per cell\n- Capacity: mAh\n- Discharge rate: C rating"
+          },
+          {
+            title: "PROPELLERS",
+            content: "Chagua kulingana na:\n\n- Ukubwa (e.g., 5045 = 5\" length, 4.5\" pitch)\n- Material (Plastic/Carbon fiber)\n- Direction (CW/CCW)"
+          },
+          {
+            title: "BUILDING STEPS",
+            content: "1. Weka frame\n2. Sakinisha motors\n3. Unganisha ESCs\n4. Weka flight controller\n5. Weka receiver\n6. Test"
+          },
+          {
+            title: "CALIBRATION",
+            content: "Muhimu kabla ya kuruka:\n\n- Calibrate ESCs\n- Calibrate accelerometer\n- Set failsafe\n- Test controls"
+          },
+          {
+            title: "FLIGHT MODES",
+            content: "1. Manual (Full control)\n2. Angle (Self-leveling)\n3. Horizon (Mix)\n4. Acro (For tricks)\n\nAnza na Angle mode."
+          },
+          {
+            title: "SAFETY TIPS",
+            content: "- Usiruke karibu na watu\n- Angalia betri kabla ya kuruka\n- Weka propeller guards\n- Jifunza kwenye simulator kwanza"
+          }
+        ];
+      }
+
+      // Falsafa ya Teknolojia Notes (10)
+      if (!notesData["Falsafa ya Teknolojia"] || notesData["Falsafa ya Teknolojia"].length === 0) {
+        notesData["Falsafa ya Teknolojia"] = [
+          {
+            title: "TEKNOLOJIA NA MAISHA",
+            content: "Teknolojia imebadilisha:\n\n- Mawasiliano\n- Kazi\n- Elimu\n- Uhusiano\n\nLakini pia ina changamoto."
+          },
+          {
+            title: "ETHICS ZA AI",
+            content: "Maswali ya maadili:\n\n- Robot wanaweza kuwa na haki?\n- AI inaweza kuwa na fahamu?\n- Nani anajibika kwa makosa ya AI?"
+          },
+          {
+            title: "DIGITAL PRIVACY",
+            content: "Haki ya kuwa na siri mtandaoni:\n\n- Taarifa zako ni mali yako\n- Kampuni hazipaswi kuuza data yako\n- Unastahili kujua unachotumwa"
+          },
+          {
+            title: "TECH ADDICTION",
+            content: "Uraibu wa teknolojia:\n\n- Simu\n- Michezo\n- Mitandao ya kijamii\n\nDalili: Kupoteza muda, kukosa usingizi"
+          },
+          {
+            title: "OPEN SOURCE",
+            content: "Mfumo wa kushiriki code:\n\n- Watu wanaweza kushiriki\n- Kurekebisha\n- Kuboresha\n\nMfano: Linux, Android, WordPress"
+          },
+          {
+            title: "DIGITAL DIVIDE",
+            content: "Tofauti ya upatikanaji wa teknolojia:\n\n- Vijijini vs mijini\n- Mataifa tajiri vs maskini\n- Vijana vs wazee"
+          },
+          {
+            title: "FUTURE OF WORK",
+            content: "Teknolojia inabadilisha kazi:\n\n- Robots zinachukua kazi\n- Watu wanahitaji kujifunza\n- Kazi mpya zinaibuka"
+          },
+          {
+            title: "SUSTAINABLE TECH",
+            content: "Teknolojia endelevu:\n\n- Kupunguza taka za elektroniki\n- Teknolojia ya nishati safi\n- Uboreshaji wa matumizi"
+          },
+          {
+            title: "VIRTUAL REALITY",
+            content: "Ukweli wa bandia:\n\n- Inaweza kubadilisha elimu\n- Inaweza kuwa na madhara ya kisaikolojia\n- Inaweza kuwa na matumizi mazuri"
+          },
+          {
+            title: "HUMAN-TECH RELATION",
+            content: "Tunapaswa kuwa:\n\n- Watumiaji wa teknolojia\n- Si watumwa wa teknolojia\n- Teknolojia iwe chombo, si mamlaka"
+          }
+        ];
+      }
+
+      localStorage.setItem("notesData", JSON.stringify(notesData));
+    }
+
+    // Initialize app with default notes
+    function initApp() {
+      initializeDefaultNotes();
+      showCategories();
+    }
+
+    // Admin Functions
+    function openLogin() {
+      document.getElementById("admin-login").style.display = "block";
+    }
+
+    function login() {
+      const input = document.getElementById("admin-password").value.trim();
+      const error = document.getElementById("login-error");
+
+      if (input === ADMIN_PASSWORD) {
+        isAdmin = true;
+        document.getElementById("admin-panel").style.display = "block";
+        document.getElementById("admin-login").style.display = "none";
+        error.textContent = "";
+        alert("Umeingia kama Admin!");
+      } else {
+        error.textContent = "⚠️ Nenosiri si sahihi!";
+      }
+    }
+
+    function logout() {
+      isAdmin = false;
+      document.getElementById("admin-panel").style.display = "none";
+      document.getElementById("app-container").style.display = "none";
+      document.getElementById("cover-page").style.display = "block";
+      alert("Admin ametoka kwenye mfumo!");
+    }
+
+    function userLogout() {
+      document.getElementById("notes-section").style.display = "none";
+      document.getElementById("app-container").style.display = "none";
+      document.getElementById("cover-page").style.display = "block";
+      alert("Umetoka kwenye mfumo, karibu tena!");
+    }
+
+    // Note Functions
+    function addNote() {
+      const category = document.getElementById("category-select").value;
+      const title = document.getElementById("note-title").value.trim();
+      let content = document.getElementById("note-content").value.trim();
+
+      if (!title || !content) {
+        alert("Tafadhali jaza kichwa na maelezo ya note.");
+        return;
+      }
+
+      // Format content before saving
+      content = formatPastedContent(content);
+
+      let notesData = JSON.parse(localStorage.getItem("notesData")) || {};
+      if (!notesData[category]) notesData[category] = [];
+      notesData[category].push({ title, content });
+      localStorage.setItem("notesData", JSON.stringify(notesData));
+
+      document.getElementById("note-title").value = "";
+      document.getElementById("note-content").value = "";
+
+      alert("Note imehifadhiwa!");
+      showCategories();
+    }
+
+    function showCategories() {
+      const container = document.getElementById("categories");
+      container.innerHTML = "";
+
+      categories.forEach(cat => {
+        const btn = document.createElement("button");
+        btn.textContent = cat;
+        btn.onclick = () => openCategory(cat);
+        container.appendChild(btn);
+      });
+
+      document.getElementById("category-list").style.display = "block";
+      document.getElementById("notes-section").style.display = "none";
+      document.getElementById("admin-panel").style.display = "none";
+      
+      // Show/hide logout button based on admin status
+      document.querySelector('.user-logout-btn').style.display = isAdmin ? 'none' : 'block';
+    }
+
+    function openCategory(category) {
+      currentCategory = category;
+      currentPage = 1;
+      displayNotesForCategory(category);
+    }
+
+    function displayNotesForCategory(category, page = 1) {
+      const categoryList = document.getElementById("category-list");
+      const notesSection = document.getElementById("notes-section");
+      
+      categoryList.classList.add('fade-out');
+      
+      setTimeout(() => {
+        categoryList.style.display = "none";
+        categoryList.classList.remove('fade-out');
+        
+        const notesData = JSON.parse(localStorage.getItem("notesData")) || {};
+        const allNotes = notesData[category] || [];
+        const totalPages = Math.ceil(allNotes.length / notesPerPage);
+        
+        // Calculate notes for current page
+        const startIndex = (page - 1) * notesPerPage;
+        const endIndex = Math.min(startIndex + notesPerPage, allNotes.length);
+        const notes = allNotes.slice(startIndex, endIndex);
+        
+        const container = document.getElementById("notes-list");
+        const heading = document.getElementById("selected-category");
+
+        heading.textContent = `📚 ${category}`;
+        container.innerHTML = "";
+
+        if (notes.length === 0) {
+          const emptyMsg = document.createElement("div");
+          emptyMsg.className = "note-box";
+          emptyMsg.innerHTML = `<p>Hakuna notes zilizohifadhiwa kwenye mada hii bado.</p>`;
+          container.appendChild(emptyMsg);
+        } else {
+          notes.forEach((note, index) => {
+            const box = document.createElement("div");
+            box.className = "note-box";
+            
+            // Format content for display
+            const formattedContent = note.content
+              .replace(/\n/g, '<br>')
+              .replace(/- /g, '• ');
+            
+            box.innerHTML = `
+              <h4>${note.title}</h4>
+              <div class="note-content">${formattedContent}</div>
+              ${isAdmin ? `
+              <div class="note-actions">
+                <span onclick="editNote('${category}', ${startIndex + index})">✏️</span>
+                <span onclick="deleteNote('${category}', ${startIndex + index})">🗑️</span>
+              </div>
+              ` : ''}
+            `;
+            container.appendChild(box);
+          });
+        }
+
+        // Setup pagination
+        const pagination = document.getElementById("pagination");
+        pagination.innerHTML = "";
+        
+        if (totalPages > 1) {
+          const prevButton = document.createElement("button");
+          prevButton.textContent = "← Awali";
+          prevButton.disabled = page === 1;
+          prevButton.onclick = () => {
+            currentPage--;
+            displayNotesForCategory(category, currentPage);
+          };
+          pagination.appendChild(prevButton);
+          
+          for (let i = 1; i <= totalPages; i++) {
+            const pageButton = document.createElement("button");
+            pageButton.textContent = i;
+            pageButton.disabled = i === page;
+            pageButton.onclick = () => {
+              currentPage = i;
+              displayNotesForCategory(category, currentPage);
+            };
+            pagination.appendChild(pageButton);
+          }
+          
+          const nextButton = document.createElement("button");
+          nextButton.textContent = "Mbele →";
+          nextButton.disabled = page === totalPages;
+          nextButton.onclick = () => {
+            currentPage++;
+            displayNotesForCategory(category, currentPage);
+          };
+          pagination.appendChild(nextButton);
+        }
+
+        notesSection.style.display = "block";
+        notesSection.classList.add('fade-in');
+        
+        setTimeout(() => {
+          notesSection.classList.remove('fade-in');
+        }, 500);
+        
+        document.getElementById("admin-panel").style.display = "none";
+        
+        // Show/hide logout button based on admin status
+        document.querySelector('.user-logout-btn').style.display = isAdmin ? 'none' : 'block';
+      }, 500);
+    }
+
+    function deleteNote(category, index) {
+      if (!isAdmin) {
+        alert("Ruhusa hufanyi kazi!");
+        return;
+      }
+      
+      if (confirm("Unataka kufuta note hii?")) {
+        let notesData = JSON.parse(localStorage.getItem("notesData")) || {};
+        if (notesData[category] && notesData[category][index]) {
+          notesData[category].splice(index, 1);
+          localStorage.setItem("notesData", JSON.stringify(notesData));
+          displayNotesForCategory(category, currentPage);
+        }
+      }
+    }
+
+    function editNote(category, index) {
+      if (!isAdmin) {
+        alert("Ruhusa hufanyi kazi!");
+        return;
+      }
+      
+      let notesData = JSON.parse(localStorage.getItem("notesData")) || {};
+      if (notesData[category] && notesData[category][index]) {
+        const note = notesData[category][index];
+        document.getElementById("category-select").value = category;
+        document.getElementById("note-title").value = note.title;
+        document.getElementById("note-content").value = note.content;
+        document.getElementById("admin-panel").style.display = "block";
+          
+        const saveBtn = document.querySelector("#admin-panel button[onclick='addNote()']");
+        saveBtn.textContent = "🔄 Sasisha";
+        saveBtn.onclick = function() {
+          updateNote(category, index);
+        };
+      }
+    }
+
+    function updateNote(category, index) {
+      const title = document.getElementById("note-title").value.trim();
+      let content = document.getElementById("note-content").value.trim();
+
+      if (!title || !content) {
+        alert("Tafadhali jaza kichwa na maelezo ya note.");
+        return;
+      }
+
+      // Format content before saving
+      content = formatPastedContent(content);
+
+      let notesData = JSON.parse(localStorage.getItem("notesData")) || {};
+      if (notesData[category] && notesData[category][index]) {
+        notesData[category][index] = { title, content };
+        localStorage.setItem("notesData", JSON.stringify(notesData));
+
+        document.getElementById("note-title").value = "";
+        document.getElementById("note-content").value = "";
+        document.getElementById("admin-panel").style.display = "none";
+          
+        const saveBtn = document.querySelector("#admin-panel button[onclick='updateNote()']");
+        saveBtn.textContent = "💾 Hifadhi";
+        saveBtn.onclick = function() {
+          addNote();
+        };
+
+        alert("Note imesasishwa!");
+        displayNotesForCategory(category, currentPage);
+      }
+    }
+
+    function goBack() {
+      const notesSection = document.getElementById("notes-section");
+      const categoryList = document.getElementById("category-list");
+      
+      notesSection.classList.add('fade-out');
+      
+      setTimeout(() => {
+        notesSection.style.display = "none";
+        notesSection.classList.remove('fade-out');
+        
+        categoryList.style.display = "block";
+        categoryList.classList.add('fade-in');
+        
+        setTimeout(() => {
+          categoryList.classList.remove('fade-in');
+        }, 500);
+        
+        // Show/hide logout button based on admin status
+        document.querySelector('.user-logout-btn').style.display = isAdmin ? 'none' : 'block';
+      }, 500);
+    }
+
+    // Handle paste event for formatting
+    document.getElementById("note-content").addEventListener("paste", function(e) {
+      setTimeout(() => {
+        const textarea = e.target;
+        textarea.value = formatPastedContent(textarea.value);
+      }, 10);
+    });
+
+    // Initialize app
+    initApp();
+  </script>
+</body>
+</html>
